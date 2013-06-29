@@ -1,4 +1,4 @@
-tiro
+Tiro
 ====
 
 Organizer for Twitter favorites
