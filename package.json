@@ -2,9 +2,9 @@
   "name": "tiro",
   "subdomain": "jwdallas-tiro",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
-  "version": "0.0.0",
+  "version": "0.0.0-1",
   "engines": {
     "node": "0.10.x"
   }
