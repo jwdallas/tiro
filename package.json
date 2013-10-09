@@ -1,6 +1,6 @@
 {
   "name": "tiro",
-  "subdomain": "jwdallas-tiro",
+  "subdomain": "tiro",
   "scripts": {
     "start": "node server.js"
   },
