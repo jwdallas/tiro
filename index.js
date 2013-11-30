@@ -40,12 +40,8 @@ function getFeed(res) {
   
     t.get('favorites/list', { count:100 }, function(err, reply) {
       if(err) { throw err; }
-      sendData(reply);
+      formatData(reply, res);
     });
-  };
-  
-  function sendData(data) {
-    res.send(data);
   };
 }
 
@@ -55,9 +51,72 @@ function dummyData(res) {
     if(err) { throw err; }
 
     var data = JSON.parse(data);
-    res.send(data);
+    formatData(data, res);
   });
 }
+
+function formatData(data, res) {
+  for(var entryNum in data) {
+    var ents = data[entryNum].entities,
+    
+    urls = ents.urls,
+    media = ents.media,
+    hashtags = ents.hashtags,
+    user_mentions = ents.user_mentions;
+    
+    // don't format unless we need to
+    if(urls) {
+      formatLinks(urls);
+    }
+    if(media) {
+      formatLinks(media);
+    }
+    if(hashtags) {
+      formatLinks(hashtags);
+    }
+    if(user_mentions) {
+      formatLinks(user_mentions);
+    }
+    
+    function formatLinks(linkType) {
+      for(var linkNum in linkType) {
+        var links = linkType[linkNum],   
+        url =             links.url,
+        expandedURL =     links.expanded_url,
+        displayURL =      links.display_url,
+        media_url_https = links.media_url_https,
+        hashtag =         links.text,
+        screen_name =     links.screen_name,
+        text =            data[entryNum].text,
+        newText;
+            
+        switch(linkType) {        
+          case urls:  
+            newText = text.replace(url,"<a href='"+expandedURL+"'>"+displayURL+"</a>");
+            break;
+          case media:
+            newText = text.replace(url,"<a href='"+media_url_https+"'>"+media_url_https+"</a>");
+            break;
+          case hashtags:
+            newText = text.replace('#'+hashtag,"<a href='https://twitter.com/search?q=%23"+hashtag+"'>"+'#'+hashtag+"</a>");
+            break;
+          case user_mentions:
+            newText = text.replace('@'+screen_name,"<a href='https://twitter.com/"+screen_name+"'>"+'@'+screen_name+"</a>");
+            break;
+        }
+        // set tweet text to newly formatted text
+        data[entryNum].text = newText;
+      };
+    };
+    
+  }; // end loop
+  
+  sendData(data, res);
+};
+
+function sendData(data, res) {
+  res.send(data);
+};
 
 // -------------------------
 // give data to client
