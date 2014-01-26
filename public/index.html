@@ -7,14 +7,16 @@
   </head>
   <body>
     
+    <h1>Tiro yo</h1>
+    
     <form action="/add">
       <input name="add" placeholder="Add...">
       <button title="Add">Add this</button>
     </form>
     
     <article>
-      <a href="https://twitter.com/$user.screen_name"><img src="$user.profile_image_url"></a>
       <p>$text</p>
+      <small><a href="https://twitter.com/$user.screen_name">@$user.screen_name</a></small>
     </article>
     
     <script src="jquery-2.0.3.min.js"></script>

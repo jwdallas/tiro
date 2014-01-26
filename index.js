@@ -64,27 +64,27 @@ function formatData(data, res) {
     
     function formatLinks(linkType) {
       for(var linkNum in linkType) {
-        var link = linkType[linkNum],   
-        url =             link.url,
-        expandedURL =     link.expanded_url,
-        displayURL =      link.display_url,
-        media_url_https = link.media_url_https,
-        hashtag =         link.text,
-        screen_name =     link.screen_name,
-        text =            data[entryNum].text,
-        newText;
+        var link = linkType[linkNum],        
+            url = link.url,
+            text = data[entryNum].text,
+            newText;
             
         switch(linkType) {        
           case urls:  
+            var expandedURL = link.expanded_url;
+            var displayURL = link.display_url;
             newText = text.replace(url,"<a href='"+expandedURL+"'>"+displayURL+"</a>");
             break;
           case media:
+            var media_url_https = link.media_url_https;
             newText = text.replace(url,"<a href='"+media_url_https+"'>"+media_url_https+"</a>");
             break;
           case hashtags:
+            var hashtag = link.text;
             newText = text.replace('#'+hashtag,"<a href='https://twitter.com/search?q=%23"+hashtag+"'>"+'#'+hashtag+"</a>");
             break;
           case user_mentions:
+            var screen_name = link.screen_name;
             newText = text.replace('@'+screen_name,"<a href='https://twitter.com/"+screen_name+"'>"+'@'+screen_name+"</a>");
             break;
         }
@@ -106,8 +106,8 @@ function sendData(data, res) {
 // give data to client
 // -------------------------
 app.get('/feed', function(req, res) {
-  // getFeed(res);
-  dummyData(res);
+  getFeed(res);
+  // dummyData(res);
 });
 
 // -------------------------
