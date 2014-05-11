@@ -4,11 +4,11 @@
   "scripts": {
     "start": "node index.js"
   },
-  "dependencies" : {
-    "express" : "3.4.x",
-    "twit"   :  "1.1.11"
+  "dependencies": {
+    "express": "3.4.x",
+    "twit": "1.1.11"
   },
-  "version": "0.0.0-2",
+  "version": "0.0.0-8",
   "engines": {
     "node": "0.10.x"
   }
