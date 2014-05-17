@@ -1,24 +1,32 @@
 * { margin:0; padding:0 }
 
+html {
+ font-size: 100%;
+}
+
 body {
-  margin: 4rem 1rem 0;
+  margin: 0 1rem;
 }
 
 form {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  padding: 1rem;
-  background: hsla(200, 0%, 90%, 0.9);
+  padding: 1.2rem;
 }
 
-article {
-/*  border-radius: 0.3rem;
-  border: 1px dashed transparent;*/
-  display: none;
+[aria-grabbed=true] {
+  opacity: 0.5;
+  outline: 1px dashed hsl(0, 0%, 20%);
 }
-/*article:hover {
-  border-color: #bbb;
-  cursor: move;
-}*/
+
+[aria-dropeffect=move] {
+  background: dodgerblue;
+}
+
+#tweets {
+  list-style-type: none;
+}
+
+#tweets li {
+  margin: 0.7rem 0;
+}

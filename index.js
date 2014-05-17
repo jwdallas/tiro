@@ -27,7 +27,7 @@ function getFeed(res) {
     access_token_secret:  access.twitter.access_token_secret
   });
 
-  t.get('favorites/list', { count:100 }, function(err, reply) {
+  t.get('favorites/list', { count:200 }, function(err, reply) {
     if(err) { throw err; }
     formatData(reply, res);
   });
@@ -36,6 +36,20 @@ function getFeed(res) {
 // prevent exceeding of API rate limit during development
 function dummyData(res) {
   var data = require('./dummy_data.json');
+  formatData(data, res);
+};
+
+// this isn’t useful now but perhaps later
+function stripData(data, res) {
+  var keys = Object.keys(data[0]);
+  var keysToKeep = ['created_at', 'id', 'text', 'entities'];
+  var keysToDelete = arraySubtract(keys, keysToKeep);
+  
+  for(var entryNum in data) {
+    keysToDelete.forEach(function(key) {
+      delete data[entryNum][key];
+    })
+  }
   formatData(data, res);
 };
 
@@ -106,8 +120,8 @@ function sendData(data, res) {
 // give data to client
 // -------------------------
 app.get('/feed', function(req, res) {
-  getFeed(res);
-  // dummyData(res);
+  // getFeed(res);
+  dummyData(res);
 });
 
 // -------------------------
@@ -126,3 +140,18 @@ app.post('/add', function(req, res) {
     }
   });
 });
+
+
+// -------------------------
+// helper functions
+// -------------------------
+function arraySubtract(A, B) {
+  var map = {}, C = [];
+  for(var i = B.length; i--; )
+      map[B[i]] = null; // any other value would do
+  for(var i = A.length; i--; ) {
+      if(!map.hasOwnProperty(A[i]))
+          C.push(A[i]);
+  }
+  return C;
+};

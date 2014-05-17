@@ -3,22 +3,21 @@
   <head>
     <meta charset=utf-8 />
     <title>Tiro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
     
-    <h1>Tiro yo</h1>
-    
-    <form action="/add">
-      <input name="add" placeholder="Add...">
-      <button title="Add">Add this</button>
+    <form action="/add" ondragover="return false">
     </form>
     
-    <article>
-      <!-- <a href="https://twitter.com/$user.screen_name">@$user.screen_name</a> -->
-      <p>$text</p>
-      <small>@$user.screen_name, <time>$created_at</time></small>
-    </article>
+    <h1>Tiro yo</h1>
+    
+    <ol id="tweets" hidden>
+      <li draggable=true>
+        <p data-id="$id">$text</p>
+        <small><cite>@$user.screen_name</cite>, <time>$created_at</time></small>
+    </ol>
     
     <script src="jquery-2.0.3.min.js"></script>
     <script src="jquery.gnius.min.js"></script>
